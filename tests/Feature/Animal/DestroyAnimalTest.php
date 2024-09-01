@@ -23,7 +23,7 @@ class DestroyAnimalTest extends TestCase
 
         $this->user = User::factory()->create();
 
-        $this->animal = Animal::factory()->create([
+        $this->animal = Animal::factory()->for($this->user->shelter)->create([
             'name' => 'Houdini',
             'description' => 'This is actually my dog.',
             'birthdate' => '2013-09-01',
@@ -46,5 +46,14 @@ class DestroyAnimalTest extends TestCase
         $response = $this->deleteJson($this->route);
 
         $response->assertUnauthorized();
+    }
+
+    public function test_cannot_destroy_an_animal_outside_user_scope(): void
+    {
+        $animalNotInUserShelter = Animal::factory()->create();
+
+        $response = $this->authenticate($this->user)->deleteJson(route('animal.destroy', $animalNotInUserShelter));
+
+        $response->assertForbidden();
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Shelter;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('animals', function (Blueprint $table) {
+        Schema::create('shelters', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignIdFor(Shelter::class)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-
             $table->string('name');
-            $table->text('description');
-            $table->timestamp('birthdate');
+            $table->string('address_line_1');
+            $table->string('address_line_2')->nullable();
+            $table->string('postcode', 50);
+            $table->string('city');
+            $table->string('country', 3)->default('FRA');
+            $table->string('phone_number', 20)->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('animals');
+        Schema::dropIfExists('shelters');
     }
 };

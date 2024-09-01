@@ -25,6 +25,7 @@ class AnimalResource extends JsonResource
             'birthdate' => $this->birthdate,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'shelter' => ShelterResource::make($this->whenLoaded('shelter')),
         ];
     }
 }

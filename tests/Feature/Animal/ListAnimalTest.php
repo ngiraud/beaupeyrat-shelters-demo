@@ -3,6 +3,7 @@
 namespace Tests\Feature\Animal;
 
 use App\Models\Animal;
+use App\Models\Shelter;
 use App\Models\User;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -25,21 +26,37 @@ class ListAnimalTest extends TestCase
         $this->route = route('animal.index');
     }
 
-    public function test_can_list_animals(): void
+    public function test_can_list_animals_related_to_shelter_user(): void
     {
-        Animal::factory()->create(['name' => 'Gordon']);
+        Animal::factory()->for($this->user->shelter)->create(['name' => 'Gordon']);
         $this->travel(5)->minutes();
-        Animal::factory()->create(['name' => 'Houdini']);
+        Animal::factory()->for($this->user->shelter)->create(['name' => 'Houdini']);
 
         $response = $this->authenticate($this->user)->getJson($this->route);
 
         $response->assertOk();
 
         $response->assertJson(function (AssertableJson $json) {
-            $json->where('data.0.name', 'Houdini')
+            // Animals should also be ordered by created_at column DESC
+            $json->has('data', 2)
+                ->where('data.0.name', 'Houdini')
                 ->where('data.1.name', 'Gordon')
                 ->etc();
         });
+    }
+
+    public function test_cannot_list_animals_from_other_shelters(): void
+    {
+        Shelter::factory()
+            ->has(Animal::factory()->count(10))
+            ->count(5)
+            ->create();
+
+        $response = $this->authenticate($this->user)->getJson($this->route);
+
+        $response->assertOk();
+
+        $response->assertJsonCount(0, 'data');
     }
 
     public function test_unauthenticated_user_cannot_list_animals(): void

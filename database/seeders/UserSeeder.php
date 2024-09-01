@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Shelter;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -12,9 +14,20 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Nicolas Giraud',
-            'email' => 'contact@ngiraud.me',
-        ]);
+        User::factory()
+            ->state(new Sequence(
+                fn (Sequence $sequence) => ['shelter_id' => Shelter::all()->random()],
+            ))
+            ->create([
+                'name' => 'Nicolas Giraud',
+                'email' => 'contact@ngiraud.me',
+            ]);
+
+        User::factory()
+            ->count(30)
+            ->state(new Sequence(
+                fn (Sequence $sequence) => ['shelter_id' => Shelter::all()->random()],
+            ))
+            ->create();
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Animal;
+use App\Models\Shelter;
 use App\Models\User;
 
-class AnimalPolicy
+class ShelterPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -18,9 +18,9 @@ class AnimalPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Animal $animal): bool
+    public function view(User $user, Shelter $shelter): bool
     {
-        return $animal->shelter->is($user->shelter);
+        return true;
     }
 
     /**
@@ -34,16 +34,16 @@ class AnimalPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Animal $animal): bool
+    public function update(User $user, Shelter $shelter): bool
     {
-        return $animal->shelter->is($user->shelter);
+        return true;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Animal $animal): bool
+    public function delete(User $user, Shelter $shelter): bool
     {
-        return $animal->shelter->is($user->shelter);
+        return false;
     }
 }

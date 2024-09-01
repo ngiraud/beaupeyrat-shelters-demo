@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Shelter;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +18,7 @@ class AnimalFactory extends Factory
     public function definition(): array
     {
         return [
+            'shelter_id' => Shelter::factory(),
             'name' => fake()->firstName(),
             'description' => fake()->paragraph(),
             'birthdate' => fake()->dateTimeThisDecade(),

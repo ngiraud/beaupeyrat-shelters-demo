@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAnimalRequest;
 use App\Http\Requests\UpdateAnimalRequest;
 use App\Http\Resources\AnimalResource;
 use App\Models\Animal;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -19,10 +20,10 @@ class AnimalController extends Controller
      *
      * @return AnonymousResourceCollection<LengthAwarePaginator<AnimalResource>>
      */
-    public function index(): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
         return AnimalResource::collection(
-            Animal::latest()->paginate()
+            $request->user()->shelter->animals()->latest()->paginate()
         );
     }
 
@@ -31,7 +32,8 @@ class AnimalController extends Controller
      */
     public function store(StoreAnimalRequest $request, StoreAnimalAction $action): AnimalResource
     {
-        $animal = $action->execute($request->validated());
+        $animal = $action->onShelter($request->user()->shelter)
+            ->execute($request->validated());
 
         return AnimalResource::make($animal);
     }
@@ -41,6 +43,8 @@ class AnimalController extends Controller
      */
     public function show(Animal $animal)
     {
+        $this->authorize('view', $animal);
+
         return AnimalResource::make($animal);
     }
 
@@ -49,7 +53,11 @@ class AnimalController extends Controller
      */
     public function update(UpdateAnimalRequest $request, Animal $animal, StoreAnimalAction $action)
     {
-        $animal = $action->on($animal)->execute($request->validated());
+        $this->authorize('update', $animal);
+
+        $animal = $action->onShelter($request->user()->shelter)
+            ->onAnimal($animal)
+            ->execute($request->validated());
 
         return AnimalResource::make($animal);
     }
@@ -59,6 +67,8 @@ class AnimalController extends Controller
      */
     public function destroy(Animal $animal)
     {
+        $this->authorize('delete', $animal);
+
         $animal->delete();
 
         return response()->noContent();

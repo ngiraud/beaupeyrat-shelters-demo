@@ -24,7 +24,7 @@ class UpdateAnimalTest extends TestCase
 
         $this->user = User::factory()->create();
 
-        $this->animal = Animal::factory()->create([
+        $this->animal = Animal::factory()->for($this->user->shelter)->create([
             'name' => 'Houdini',
             'description' => 'This is actually my dog.',
             'birthdate' => '2013-09-01',
@@ -84,5 +84,18 @@ class UpdateAnimalTest extends TestCase
         $response = $this->putJson($this->route);
 
         $response->assertUnauthorized();
+    }
+
+    public function test_cannot_update_an_animal_outside_user_scope(): void
+    {
+        $animalNotInUserShelter = Animal::factory()->create();
+
+        $response = $this->authenticate($this->user)->putJson(route('animal.update', $animalNotInUserShelter), [
+            'name' => 'Gordon',
+            'description' => 'Because he looks like Gordon from Batman',
+            'birthdate' => '2024-02-04',
+        ]);
+
+        $response->assertForbidden();
     }
 }
