@@ -1,0 +1,50 @@
+<?php
+
+namespace Tests\Feature\Animal;
+
+use App\Models\Animal;
+use App\Models\User;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Tests\TestCase;
+
+class DestroyAnimalTest extends TestCase
+{
+    use LazilyRefreshDatabase;
+
+    protected User $user;
+
+    protected Animal $animal;
+
+    protected string $route;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create();
+
+        $this->animal = Animal::factory()->create([
+            'name' => 'Houdini',
+            'description' => 'This is actually my dog.',
+            'birthdate' => '2013-09-01',
+        ]);
+
+        $this->route = route('animal.destroy', $this->animal);
+    }
+
+    public function test_can_delete_an_animal(): void
+    {
+        $response = $this->authenticate($this->user)->deleteJson($this->route);
+
+        $response->assertNoContent();
+
+        $this->assertModelMissing($this->animal);
+    }
+
+    public function test_unauthenticated_user_cannot_delete_an_animal(): void
+    {
+        $response = $this->deleteJson($this->route);
+
+        $response->assertUnauthorized();
+    }
+}
