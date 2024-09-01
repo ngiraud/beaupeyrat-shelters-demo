@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Animal;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class AnimalPolicy
 {
@@ -13,7 +12,7 @@ class AnimalPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -21,7 +20,7 @@ class AnimalPolicy
      */
     public function view(User $user, Animal $animal): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -29,7 +28,7 @@ class AnimalPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -37,7 +36,7 @@ class AnimalPolicy
      */
     public function update(User $user, Animal $animal): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -45,22 +44,6 @@ class AnimalPolicy
      */
     public function delete(User $user, Animal $animal): bool
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Animal $animal): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Animal $animal): bool
-    {
-        //
+        return true;
     }
 }

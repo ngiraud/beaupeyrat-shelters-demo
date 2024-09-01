@@ -10,7 +10,7 @@ class Animal extends Model
     use HasFactory;
 
     /**
-     * @var array<string, mixed>
+     * @var array<string, string>
      */
     protected $casts = [
         'birthdate' => 'immutable_datetime',

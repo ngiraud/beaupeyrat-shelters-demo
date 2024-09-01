@@ -37,8 +37,8 @@ class ListAnimalTest extends TestCase
 
         $response->assertJson(function (AssertableJson $json) {
             $json->where('data.0.name', 'Houdini')
-                 ->where('data.1.name', 'Gordon')
-                 ->etc();
+                ->where('data.1.name', 'Gordon')
+                ->etc();
         });
     }
 

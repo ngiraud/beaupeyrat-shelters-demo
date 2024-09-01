@@ -13,7 +13,7 @@ class StoreAnimalAction
      */
     public function execute(array $data): Animal
     {
-        $animal = $this->animal ?? new Animal();
+        $animal = $this->animal ?? new Animal;
 
         $animal->fill($data)->save();
 
