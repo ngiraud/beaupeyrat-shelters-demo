@@ -58,12 +58,14 @@ sail artisan sail:add
 
 ## Environnement de développement
 
-### PHPStorm
+### Plugins PHPStorm
 
-- Plugin Laravel
-- (Plugin Laravel Idea (payant))
+- [Laravel](https://plugins.jetbrains.com/plugin/7532-laravel)
+- [.env files support](https://plugins.jetbrains.com/plugin/9525--env-files-support)
+- [Laravel Idea **(Payant)**](https://laravel-idea.com/)
+- [Key Promoter X](https://plugins.jetbrains.com/plugin/9792-key-promoter-x) - Pour ajouter des raccourcis sur des actions souvent réalisées
 
-### VSCode
+### Plugins VSCode
 
 - [Laravel Blade Formatter](https://marketplace.visualstudio.com/items?itemName=shufo.vscode-blade-formatter)
 - [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
@@ -117,6 +119,12 @@ Le plus simple pour commencer à l'utiliser via Postman est d'utiliser le Passwo
 - [Laravel Media Library](https://spatie.be/docs/laravel-medialibrary/v11/introduction) - Gestion des fichiers et de leur association avec des models Eloquent
 - [Laravel Permission](https://spatie.be/docs/laravel-permission/v6/introduction) - Gestion des rôles et permissions utilisateurs
 - [Laravel Excel](https://laravel-excel.com/) - Simplification des exports et imports (csv, xlsx, ...)
+
+## Déploiement sur ce projet
+
+- Déploiement effectué via Laravel Forge
+- Ajout d'une Deploy Key
+- Ajout d'une action [deploy.yml](.github/workflows/deploy.yml) qui trigger le déploiement en ajoutant une release
 
 ## License
 
