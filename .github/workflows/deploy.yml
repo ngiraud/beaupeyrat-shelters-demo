@@ -1,0 +1,15 @@
+name: Deploy in production
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to Laravel Forge on release ${{ github.ref_name }}
+        run: curl ${{ secrets.FORGE_DEPLOYMENT_WEBHOOK }}&tag=${{ github.ref_name }}
