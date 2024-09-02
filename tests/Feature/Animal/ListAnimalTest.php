@@ -5,14 +5,11 @@ namespace Tests\Feature\Animal;
 use App\Models\Animal;
 use App\Models\Shelter;
 use App\Models\User;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class ListAnimalTest extends TestCase
 {
-    use LazilyRefreshDatabase;
-
     protected User $user;
 
     protected string $route;

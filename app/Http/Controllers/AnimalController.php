@@ -9,6 +9,7 @@ use App\Http\Resources\AnimalResource;
 use App\Models\Animal;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class AnimalController extends Controller
@@ -41,7 +42,7 @@ class AnimalController extends Controller
     /**
      * Display the specified animal.
      */
-    public function show(Animal $animal)
+    public function show(Animal $animal): AnimalResource
     {
         $this->authorize('view', $animal);
 
@@ -51,7 +52,7 @@ class AnimalController extends Controller
     /**
      * Update the specified animal.
      */
-    public function update(UpdateAnimalRequest $request, Animal $animal, StoreAnimalAction $action)
+    public function update(UpdateAnimalRequest $request, Animal $animal, StoreAnimalAction $action): AnimalResource
     {
         $this->authorize('update', $animal);
 
@@ -65,7 +66,7 @@ class AnimalController extends Controller
     /**
      * Remove the specified animal.
      */
-    public function destroy(Animal $animal)
+    public function destroy(Animal $animal): Response
     {
         $this->authorize('delete', $animal);
 

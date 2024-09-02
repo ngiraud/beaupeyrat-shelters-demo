@@ -4,14 +4,11 @@ namespace Tests\Feature\Animal;
 
 use App\Models\Animal;
 use App\Models\User;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class ShowAnimalTest extends TestCase
 {
-    use LazilyRefreshDatabase;
-
     protected User $user;
 
     protected Animal $animal;
@@ -49,7 +46,7 @@ class ShowAnimalTest extends TestCase
         });
     }
 
-    public function test_unauthenticated_user_cannot_store_an_animal(): void
+    public function test_unauthenticated_user_cannot_show_an_animal(): void
     {
         $response = $this->getJson($this->route);
 

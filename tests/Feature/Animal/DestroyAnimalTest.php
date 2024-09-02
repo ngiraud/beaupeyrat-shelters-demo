@@ -4,13 +4,10 @@ namespace Tests\Feature\Animal;
 
 use App\Models\Animal;
 use App\Models\User;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Tests\TestCase;
 
 class DestroyAnimalTest extends TestCase
 {
-    use LazilyRefreshDatabase;
-
     protected User $user;
 
     protected Animal $animal;

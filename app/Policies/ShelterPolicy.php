@@ -28,7 +28,7 @@ class ShelterPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -36,7 +36,7 @@ class ShelterPolicy
      */
     public function update(User $user, Shelter $shelter): bool
     {
-        return true;
+        return $shelter->id === $user->shelter_id;
     }
 
     /**

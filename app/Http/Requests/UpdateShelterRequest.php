@@ -7,14 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 class UpdateShelterRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
@@ -22,7 +14,12 @@ class UpdateShelterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'max:255'],
+            'address_line_1' => ['required', 'max:255'],
+            'address_line_2' => [],
+            'postcode' => ['required', 'max:50'],
+            'city' => ['required', 'max:255'],
+            'phone_number' => ['required', 'max:20'],
         ];
     }
 }
