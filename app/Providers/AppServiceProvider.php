@@ -44,11 +44,11 @@ class AppServiceProvider extends ServiceProvider
         Scramble::afterOpenApiGenerated(function (OpenApi $openApi) {
             $openApi->secure(
                 SecurityScheme::oauth2()
-                              ->flow('password', function (OAuthFlow $flow) {
-                                  $flow
-                                      ->tokenUrl(route('passport.token'))
-                                      ->refreshUrl(route('passport.token.refresh'));
-                              })
+                    ->flow('password', function (OAuthFlow $flow) {
+                        $flow
+                            ->tokenUrl(route('passport.token'))
+                            ->refreshUrl(route('passport.token.refresh'));
+                    })
             );
         });
     }
