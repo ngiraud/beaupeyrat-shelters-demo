@@ -1,27 +1,16 @@
+# Shelters
+
 [![Laravel Forge Site Deployment Status](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F1fe51b34-7c12-4368-a253-88199be46e79%3Fdate%3D1%26label%3D1%26commit%3D1&style=flat-square)](https://forge.laravel.com/servers/777083/sites/2454953)
 
-### Création du projet via Sail (environnement de développement Docker fourni par Laravel)
+Projet simple de démonstration visant à introduire les premières notions à l'utilisation du framework Laravel.
 
-Doc : https://laravel.com/docs/11.x/sail
+## Création du projet via Laravel Sail
 
-#### Penser à configurer un alias pour utiliser la commande `sail` :
-
-Doc : https://laravel.com/docs/11.x/sail#configuring-a-shell-alias
-
-Toutes les commandes utilisées pour le projet (composer, php, ...) doivent être préfixées par `sail`
-
-Ex :
+- Environnement de développement Docker fourni par Laravel
+- Doc : https://laravel.com/docs/11.x/sail
 
 ```shell
-sail composer install
-
-sail artisan make:model Post
-ou
-sail php artisan make:model Post
-```
-
-```shell
-curl -s "https://laravel.build/example-app?with=mysql,redis,mailpit" | bash
+curl -s "https://laravel.build/example-app?with=mysql,mailpit" | bash
 ```
 
 `example-app` est le nom du projet
@@ -33,17 +22,33 @@ cd example-app
 ./vendor/bin/sail up
 ```
 
-#### MySql
+Toutes les commandes utilisées pour le projet (composer, php, ...) doivent être préfixées par `sail`
 
-Host: 127.0.0.1
-User : sail
-Password : password
-Port : 3306
-Database : laravel
+**Penser à configurer un alias pour utiliser la commande `sail`**
 
-#### Mailpit
+- Doc : https://laravel.com/docs/11.x/sail#configuring-a-shell-alias
 
-URL : http://localhost:8025
+```shell
+sail composer install
+
+sail artisan make:model Post -a --api
+ou
+sail php artisan make:model Post -a --api
+```
+
+## Configuration
+
+### MySql
+
+- Host: 127.0.0.1
+- User : sail
+- Password : password
+- Port : 3306
+- Database : laravel
+
+### Mailpit
+
+- Url : http://localhost:8025
 
 Par la suite si besoin d'ajouter des services :
 
@@ -51,20 +56,22 @@ Par la suite si besoin d'ajouter des services :
 sail artisan sail:add
 ```
 
-### Configuration de l'environnement de développement
+## Environnement de développement
 
-#### PHPStorm
+### PHPStorm
 
-Plugin Laravel
-(Plugin Laravel Idea (payant))
+- Plugin Laravel
+- (Plugin Laravel Idea (payant))
 
-#### VSCode
+### VSCode
 
-@todo
+- [Laravel Blade Formatter](https://marketplace.visualstudio.com/items?itemName=shufo.vscode-blade-formatter)
+- [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
 
-#### Ajout d'un outil de debug, Laravel Telescope
+### Outil de debug, Laravel Telescope
 
-Doc : https://laravel.com/docs/11.x/telescope
+- Doc : https://laravel.com/docs/11.x/telescope
+- Url : http://localhost
 
 ```shell
 sail composer require laravel/telescope
@@ -72,28 +79,45 @@ sail artisan telescope:install
 sail artisan migrate
 ```
 
-#### (Optionnel) Outil de code quality, Larastan
+### Lancer les tests
 
-Doc : https://github.com/larastan/larastan
+```shell
+sail bin phpunit
+ou
+sail artisan test
+```
+
+### (Optionnel) Outil de code quality, Larastan
+
+- Doc : https://github.com/larastan/larastan
 
 ```shell
 sail composer require --dev "larastan/larastan:^2.0"
-```
-
-Pour le lancer :
-
-```shell
 sail bin phpstan
 ```
 
-#### (Optionnel) PHP code style fixer, Laravel Pint
+### (Optionnel) PHP code style fixer, Laravel Pint
 
-Doc : https://laravel.com/docs/11.x/pint
+- Doc : https://laravel.com/docs/11.x/pint
 
 Déjà installé sur un nouveau projet Laravel
-
-Pour le lancer :
 
 ```shell
 sail bin pint
 ```
+
+## Authorization via Laravel Passport
+
+- Doc : https://laravel.com/docs/11.x/passport
+
+Le plus simple pour commencer à l'utiliser via Postman est d'utiliser le Password Grant Tokens.
+
+## Quelques packages populaires hors packages Laravel officiels
+
+- [Laravel Media Library](https://spatie.be/docs/laravel-medialibrary/v11/introduction) - Gestion des fichiers et de leur association avec des models Eloquent
+- [Laravel Permission](https://spatie.be/docs/laravel-permission/v6/introduction) - Gestion des rôles et permissions utilisateurs
+- [Laravel Excel](https://laravel-excel.com/) - Simplification des exports et imports (csv, xlsx, ...)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
