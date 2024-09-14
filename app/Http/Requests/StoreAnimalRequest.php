@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\AnimalGender;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreAnimalRequest extends FormRequest
 {
@@ -17,6 +19,7 @@ class StoreAnimalRequest extends FormRequest
             'name' => ['required', 'max:255'],
             'description' => ['required'],
             'birthdate' => ['required', 'date'],
+            'gender' => ['required', Rule::enum(AnimalGender::class)],
         ];
     }
 }

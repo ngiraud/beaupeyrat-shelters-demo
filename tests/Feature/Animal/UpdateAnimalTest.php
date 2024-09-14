@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Animal;
 
+use App\Enums\AnimalGender;
 use App\Models\Animal;
 use App\Models\User;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -25,6 +26,7 @@ class UpdateAnimalTest extends TestCase
             'name' => 'Houdini',
             'description' => 'This is actually my dog.',
             'birthdate' => '2013-09-01',
+            'gender' => AnimalGender::Male,
         ]);
 
         $this->route = route('animal.update', $this->animal);
@@ -36,6 +38,7 @@ class UpdateAnimalTest extends TestCase
             'name' => 'Gordon',
             'description' => 'Because he looks like Gordon from Batman',
             'birthdate' => '2024-02-04',
+            'gender' => AnimalGender::Male,
         ]);
 
         $response->assertOk();
@@ -49,9 +52,10 @@ class UpdateAnimalTest extends TestCase
         $response->assertJson(function (AssertableJson $json) {
             $json->has('data', function (AssertableJson $json) {
                 return $json->where('name', $this->animal->name)
-                    ->where('description', $this->animal->description)
-                    ->where('birthdate', $this->animal->birthdate->toJSON())
-                    ->etc();
+                            ->where('description', $this->animal->description)
+                            ->where('birthdate', $this->animal->birthdate->toJSON())
+                            ->where('gender', $this->animal->gender)
+                            ->etc();
             });
         });
     }
@@ -76,6 +80,15 @@ class UpdateAnimalTest extends TestCase
         $response->assertJsonValidationErrorFor('birthdate');
     }
 
+    public function test_gender_must_be_valid(): void
+    {
+        $response = $this->authenticate($this->user)->putJson($this->route, [
+            'gender' => 'invalid-gender',
+        ]);
+
+        $response->assertJsonValidationErrorFor('gender');
+    }
+
     public function test_unauthenticated_user_cannot_update_an_animal(): void
     {
         $response = $this->putJson($this->route);
@@ -91,6 +104,7 @@ class UpdateAnimalTest extends TestCase
             'name' => 'Gordon',
             'description' => 'Because he looks like Gordon from Batman',
             'birthdate' => '2024-02-04',
+            'gender' => AnimalGender::Male,
         ]);
 
         $response->assertForbidden();

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\AnimalGender;
 use App\Models\Shelter;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,6 +23,7 @@ class AnimalFactory extends Factory
             'name' => fake()->firstName(),
             'description' => fake()->paragraph(),
             'birthdate' => fake()->dateTimeThisDecade(),
+            'gender' => fake()->randomElement(AnimalGender::class),
         ];
     }
 }
