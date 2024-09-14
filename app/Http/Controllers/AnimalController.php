@@ -33,7 +33,8 @@ class AnimalController extends Controller
      */
     public function store(StoreAnimalRequest $request, StoreAnimalAction $action): AnimalResource
     {
-        $animal = $action->onShelter($request->user()->shelter)
+        $animal = $action
+            ->onShelter($request->user()->shelter)
             ->execute($request->validated());
 
         return AnimalResource::make($animal);
@@ -56,7 +57,8 @@ class AnimalController extends Controller
     {
         $this->authorize('update', $animal);
 
-        $animal = $action->onShelter($request->user()->shelter)
+        $animal = $action
+            ->onShelter($request->user()->shelter)
             ->onAnimal($animal)
             ->execute($request->validated());
 

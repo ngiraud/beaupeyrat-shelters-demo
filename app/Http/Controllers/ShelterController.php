@@ -56,7 +56,9 @@ class ShelterController extends Controller
     {
         $this->authorize('update', $shelter);
 
-        $shelter = $action->onShelter($shelter)->execute($request->validated());
+        $shelter = $action
+            ->onShelter($shelter)
+            ->execute($request->validated());
 
         return ShelterResource::make($shelter);
     }
