@@ -39,10 +39,10 @@ class StoreAnimalTest extends TestCase
         $response->assertJson(function (AssertableJson $json) use ($animal) {
             $json->has('data', function (AssertableJson $json) use ($animal) {
                 return $json->where('name', $animal->name)
-                            ->where('description', $animal->description)
-                            ->where('birthdate', $animal->birthdate->toJSON())
-                            ->where('gender', $animal->gender)
-                            ->etc();
+                    ->where('description', $animal->description)
+                    ->where('birthdate', $animal->birthdate->toJSON())
+                    ->where('gender', $animal->gender)
+                    ->etc();
             });
         });
     }
