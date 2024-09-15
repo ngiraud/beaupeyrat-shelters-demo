@@ -20,7 +20,7 @@ class AnimalPolicy
      */
     public function view(User $user, Animal $animal): bool
     {
-        return $animal->shelter->is($user->shelter);
+        return $animal->shelter_id === $user->shelter_id;
     }
 
     /**
@@ -36,7 +36,7 @@ class AnimalPolicy
      */
     public function update(User $user, Animal $animal): bool
     {
-        return $animal->shelter->is($user->shelter);
+        return $animal->shelter_id === $user->shelter_id;
     }
 
     /**
@@ -44,6 +44,6 @@ class AnimalPolicy
      */
     public function delete(User $user, Animal $animal): bool
     {
-        return $animal->shelter->is($user->shelter);
+        return $animal->shelter_id === $user->shelter_id;
     }
 }

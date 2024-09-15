@@ -14,11 +14,15 @@ class AnimalSeeder extends Seeder
      */
     public function run(): void
     {
+        $shelters = Shelter::all();
+
         Animal::factory()
-            ->count(100)
-            ->state(new Sequence(
-                fn (Sequence $sequence) => ['shelter_id' => Shelter::all()->random()],
-            ))
-            ->create();
+              ->count(100)
+              ->state(new Sequence(
+                  fn(Sequence $sequence) => [
+                      'shelter_id' => $shelters->random(),
+                  ],
+              ))
+              ->create();
     }
 }
