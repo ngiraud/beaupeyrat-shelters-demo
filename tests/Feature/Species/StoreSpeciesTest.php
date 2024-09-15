@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
-//use App\Models\Animal;
+//use App\Models\Species;
 
 class StoreSpeciesTest extends TestCase
 {
