@@ -25,9 +25,7 @@ class ListSpeciesTest extends TestCase
     public function test_can_list_species(): void
     {
         Species::factory()->create(['name' => 'Chien']);
-        $this->travel(5)->minutes();
         Species::factory()->create(['name' => 'Chat']);
-        $this->travel(5)->minutes();
         Species::factory()->create(['name' => 'Lapin']);
 
         $response = $this->authenticate($this->user)->getJson($this->route);
@@ -37,8 +35,8 @@ class ListSpeciesTest extends TestCase
         $response->assertJson(function (AssertableJson $json) {
             // Species should also be ordered by name column ASC
             $json->has('data', 3)
-                 ->where('data.1.name', 'Chat')
-                 ->where('data.0.name', 'Chien')
+                 ->where('data.0.name', 'Chat')
+                 ->where('data.1.name', 'Chien')
                  ->where('data.2.name', 'Lapin')
                  ->etc();
         });
