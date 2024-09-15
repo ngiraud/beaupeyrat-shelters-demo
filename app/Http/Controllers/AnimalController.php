@@ -47,6 +47,8 @@ class AnimalController extends Controller
     {
         $this->authorize('view', $animal);
 
+        $animal->loadMissing(['shelter']);
+
         return AnimalResource::make($animal);
     }
 

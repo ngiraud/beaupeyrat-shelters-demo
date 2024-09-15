@@ -42,6 +42,7 @@ class ShowAnimalTest extends TestCase
                     ->where('description', $this->animal->description)
                     ->where('birthdate', $this->animal->birthdate->toJSON())
                     ->where('gender', $this->animal->gender)
+                    ->where('species.name', $this->animal->species->name)
                     ->etc();
             });
         });
