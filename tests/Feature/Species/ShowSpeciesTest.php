@@ -37,7 +37,7 @@ class ShowSpeciesTest extends TestCase
         $response->assertJson(function (AssertableJson $json) {
             $json->has('data', function (AssertableJson $json) {
                 return $json->where('name', $this->species->name)
-                            ->etc();
+                    ->etc();
             });
         });
     }

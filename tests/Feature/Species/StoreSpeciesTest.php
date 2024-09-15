@@ -38,8 +38,8 @@ class StoreSpeciesTest extends TestCase
         $response->assertJson(function (AssertableJson $json) use ($species) {
             $json->has('data', function (AssertableJson $json) use ($species) {
                 return $json->where('name', $species->name)
-                            ->where('description', $species->description)
-                            ->etc();
+                    ->where('description', $species->description)
+                    ->etc();
             });
         });
     }

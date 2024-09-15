@@ -39,11 +39,11 @@ class ShowAnimalTest extends TestCase
         $response->assertJson(function (AssertableJson $json) {
             $json->has('data', function (AssertableJson $json) {
                 return $json->where('name', $this->animal->name)
-                            ->where('description', $this->animal->description)
-                            ->where('birthdate', $this->animal->birthdate->toJSON())
-                            ->where('gender', $this->animal->gender)
-                            ->where('species.name', $this->animal->species->name)
-                            ->etc();
+                    ->where('description', $this->animal->description)
+                    ->where('birthdate', $this->animal->birthdate->toJSON())
+                    ->where('gender', $this->animal->gender)
+                    ->where('species.name', $this->animal->species->name)
+                    ->etc();
             });
         });
     }

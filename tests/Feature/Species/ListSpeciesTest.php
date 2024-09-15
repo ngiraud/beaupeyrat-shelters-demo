@@ -35,10 +35,10 @@ class ListSpeciesTest extends TestCase
         $response->assertJson(function (AssertableJson $json) {
             // Species should also be ordered by name column ASC
             $json->has('data', 3)
-                 ->where('data.0.name', 'Chat')
-                 ->where('data.1.name', 'Chien')
-                 ->where('data.2.name', 'Lapin')
-                 ->etc();
+                ->where('data.0.name', 'Chat')
+                ->where('data.1.name', 'Chien')
+                ->where('data.2.name', 'Lapin')
+                ->etc();
         });
     }
 

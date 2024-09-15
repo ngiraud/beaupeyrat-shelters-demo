@@ -47,8 +47,8 @@ class UpdateSpeciesTest extends TestCase
         $response->assertJson(function (AssertableJson $json) {
             $json->has('data', function (AssertableJson $json) {
                 return $json->where('name', $this->species->name)
-                            ->where('description', $this->species->description)
-                            ->etc();
+                    ->where('description', $this->species->description)
+                    ->etc();
             });
         });
     }
@@ -65,7 +65,7 @@ class UpdateSpeciesTest extends TestCase
     public function test_unauthenticated_user_cannot_update_a_species(): void
     {
         $response = $this->putJson($this->route, [
-            'name' => 'Chien'
+            'name' => 'Chien',
         ]);
 
         $response->assertUnauthorized();

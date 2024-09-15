@@ -17,12 +17,12 @@ class AnimalSeeder extends Seeder
         $shelters = Shelter::all();
 
         Animal::factory()
-              ->count(100)
-              ->state(new Sequence(
-                  fn(Sequence $sequence) => [
-                      'shelter_id' => $shelters->random(),
-                  ],
-              ))
-              ->create();
+            ->count(100)
+            ->state(new Sequence(
+                fn (Sequence $sequence) => [
+                    'shelter_id' => $shelters->random(),
+                ],
+            ))
+            ->create();
     }
 }
