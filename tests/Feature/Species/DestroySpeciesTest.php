@@ -13,6 +13,8 @@ class DestroySpeciesTest extends TestCase
 
     protected Species $species;
 
+    protected Species $uncategorizedSpecies;
+
     protected string $route;
 
     protected function setUp(): void
@@ -23,6 +25,10 @@ class DestroySpeciesTest extends TestCase
 
         $this->species = Species::factory()->create([
             'name' => 'Chien',
+        ]);
+
+        $this->uncategorizedSpecies = Species::factory()->create([
+            'name' => 'Uncategorized',
         ]);
 
         $this->route = route('species.destroy', $this->species);
@@ -47,12 +53,10 @@ class DestroySpeciesTest extends TestCase
 
         $this->assertModelMissing($this->species);
 
-        $animals->load('species');
-
         $uncategorizedSpecies = Species::where('name', 'Uncategorized')->first();
-        
+
         $animals->each(function (Animal $animal) use ($uncategorizedSpecies) {
-            $this->assertTrue($animal->species->is($uncategorizedSpecies));
+            $this->assertTrue($animal->refresh()->species->is($uncategorizedSpecies));
         });
     }
 
