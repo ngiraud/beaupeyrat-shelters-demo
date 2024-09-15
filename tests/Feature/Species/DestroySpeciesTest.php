@@ -2,9 +2,10 @@
 
 namespace Tests\Feature\Species;
 
-//use App\Models\Species;
 use App\Models\Animal;
+use App\Models\Species;
 use App\Models\User;
+use Database\Seeders\SpeciesSeeder;
 use Tests\TestCase;
 
 class DestroySpeciesTest extends TestCase
@@ -27,9 +28,9 @@ class DestroySpeciesTest extends TestCase
             'name' => 'Chien',
         ]);
 
-        $this->uncategorizedSpecies = Species::factory()->create([
-            'name' => 'Uncategorized',
-        ]);
+        $this->seed(SpeciesSeeder::class);
+
+        $this->uncategorizedSpecies = Species::where('name', 'Uncategorized')->firstOrFail();
 
         $this->route = route('species.destroy', $this->species);
     }

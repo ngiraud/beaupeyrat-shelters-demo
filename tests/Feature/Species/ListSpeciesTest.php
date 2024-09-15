@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Species;
 
-//use App\Models\Species;
+use App\Models\Species;
 use App\Models\User;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;

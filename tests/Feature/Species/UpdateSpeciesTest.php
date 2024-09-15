@@ -2,11 +2,10 @@
 
 namespace Tests\Feature\Species;
 
+use App\Models\Species;
 use App\Models\User;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
-
-//use App\Models\Species;
 
 class UpdateSpeciesTest extends TestCase
 {
@@ -65,7 +64,9 @@ class UpdateSpeciesTest extends TestCase
 
     public function test_unauthenticated_user_cannot_update_a_species(): void
     {
-        $response = $this->putJson($this->route);
+        $response = $this->putJson($this->route, [
+            'name' => 'Chien'
+        ]);
 
         $response->assertUnauthorized();
     }
