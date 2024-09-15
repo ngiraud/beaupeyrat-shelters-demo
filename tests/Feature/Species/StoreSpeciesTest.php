@@ -23,7 +23,7 @@ class StoreSpeciesTest extends TestCase
         $this->route = route('species.store');
     }
 
-    public function test_can_create_an_animal(): void
+    public function test_can_create_an_species(): void
     {
         $response = $this->authenticate($this->user)->postJson($this->route, [
             'name' => 'Chien',
