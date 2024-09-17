@@ -62,7 +62,7 @@ class SpeciesController extends Controller
     public function destroy(Species $species)
     {
         $species->animals()->update([
-            'species_id' => Species::where('name', 'Uncategorized')->value('id')
+            'species_id' => Species::where('name', 'Uncategorized')->value('id'),
         ]);
 
         $species->delete();
