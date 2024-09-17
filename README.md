@@ -4,7 +4,7 @@
 
 Projet simple de démonstration visant à introduire les premières notions à l'utilisation du framework Laravel.
 
-## Création du projet via Laravel Sail
+## Création d'un projet avec Laravel Sail
 
 - Environnement de développement Docker fourni par Laravel
 - Doc : https://laravel.com/docs/11.x/sail
@@ -15,7 +15,10 @@ curl -s "https://laravel.build/example-app?with=mysql,mailpit" | bash
 
 `example-app` est le nom du projet
 
-Ouvrir le projet et lancer Docker
+> [!NOTE]
+> Pour reprendre ce projet il vaut mieux faire un fork vers son compte Github
+
+### Ouvrir le projet et lancer Docker
 
 ```shell
 cd example-app
@@ -27,6 +30,10 @@ Toutes les commandes utilisées pour le projet (composer, php, ...) doivent êtr
 **Penser à configurer un alias pour utiliser la commande `sail`**
 
 - Doc : https://laravel.com/docs/11.x/sail#configuring-a-shell-alias
+
+### Utilisation des commandes via Sail
+
+Les commandes **doivent** être exécutées dans le contexte du container.
 
 ```shell
 sail composer install
@@ -65,10 +72,14 @@ sail artisan sail:add
 - [Laravel Idea **(Payant)**](https://laravel-idea.com/)
 - [Key Promoter X](https://plugins.jetbrains.com/plugin/9792-key-promoter-x) - Pour ajouter des raccourcis sur des actions souvent réalisées
 
+À priori PHPStorm à une offre [Free Educational Licenses](https://www.jetbrains.com/community/education/#students) qui permet d'utiliser leurs produits et les plugins payants
+associés **gratuitement**.
+
 ### Plugins VSCode
 
 - [Laravel Blade Formatter](https://marketplace.visualstudio.com/items?itemName=shufo.vscode-blade-formatter)
 - [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
+- [Better PHPUnit](https://marketplace.visualstudio.com/items?itemName=calebporzio.better-phpunit)
 
 ### Outil de debug, Laravel Telescope
 
