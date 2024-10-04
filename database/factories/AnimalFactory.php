@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\AnimalGender;
 use App\Models\Shelter;
+use App\Models\Species;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +21,7 @@ class AnimalFactory extends Factory
     {
         return [
             'shelter_id' => Shelter::factory(),
+            'species_id' => Species::factory(),
             'name' => fake()->firstName(),
             'description' => fake()->paragraph(),
             'birthdate' => fake()->dateTimeThisDecade(),

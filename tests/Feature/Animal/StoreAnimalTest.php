@@ -4,7 +4,9 @@ namespace Tests\Feature\Animal;
 
 use App\Enums\AnimalGender;
 use App\Models\Animal;
+use App\Models\Species;
 use App\Models\User;
+use Database\Seeders\SpeciesSeeder;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
@@ -21,28 +23,34 @@ class StoreAnimalTest extends TestCase
         $this->user = User::factory()->create();
 
         $this->route = route('animal.store');
+
+        $this->seed(SpeciesSeeder::class);
     }
 
     public function test_can_create_an_animal(): void
     {
+        $species = Species::factory()->create();
+
         $response = $this->authenticate($this->user)->postJson($this->route, [
             'name' => 'Gordon',
             'description' => 'Because he looks like Gordon from Batman',
             'birthdate' => '2024-02-04',
             'gender' => AnimalGender::Male,
+            'species_id' => $species->id,
         ]);
 
         $response->assertCreated();
 
         $animal = Animal::where('name', 'Gordon')->first();
 
-        $response->assertJson(function (AssertableJson $json) use ($animal) {
-            $json->has('data', function (AssertableJson $json) use ($animal) {
+        $response->assertJson(function (AssertableJson $json) use ($species, $animal) {
+            $json->has('data', function (AssertableJson $json) use ($species, $animal) {
                 return $json->where('name', $animal->name)
-                    ->where('description', $animal->description)
-                    ->where('birthdate', $animal->birthdate->toJSON())
-                    ->where('gender', $animal->gender)
-                    ->etc();
+                            ->where('description', $animal->description)
+                            ->where('birthdate', $animal->birthdate->toJSON())
+                            ->where('gender', $animal->gender)
+                            ->where('species_id', $species->id)
+                            ->etc();
             });
         });
     }
@@ -55,6 +63,7 @@ class StoreAnimalTest extends TestCase
             'name',
             'description',
             'birthdate',
+            'species_id',
         ]);
     }
 
@@ -65,6 +74,15 @@ class StoreAnimalTest extends TestCase
         ]);
 
         $response->assertJsonValidationErrorFor('birthdate');
+    }
+
+    public function test_species_must_exist_and_be_valid(): void
+    {
+        $response = $this->authenticate($this->user)->postJson($this->route, [
+            'species_id' => 'not-a-valid-species',
+        ]);
+
+        $response->assertJsonValidationErrorFor('species_id');
     }
 
     public function test_gender_must_be_valid(): void
