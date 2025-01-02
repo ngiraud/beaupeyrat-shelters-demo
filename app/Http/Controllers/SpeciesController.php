@@ -6,7 +6,10 @@ use App\Http\Requests\StoreSpeciesRequest;
 use App\Http\Requests\UpdateSpeciesRequest;
 use App\Http\Resources\SpeciesResource;
 use App\Models\Species;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class SpeciesController extends Controller
 {
@@ -19,7 +22,7 @@ class SpeciesController extends Controller
      *
      * @return AnonymousResourceCollection<LengthAwarePaginator<SpeciesResource>>
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
         return SpeciesResource::collection(
             Species::orderby('name')->paginate()
@@ -29,7 +32,7 @@ class SpeciesController extends Controller
     /**
      * Store a newly created species.
      */
-    public function store(StoreSpeciesRequest $request)
+    public function store(StoreSpeciesRequest $request): SpeciesResource
     {
         $this->authorize('create', Species::class);
 
@@ -41,7 +44,7 @@ class SpeciesController extends Controller
     /**
      * Display the specified species.
      */
-    public function show(Species $species)
+    public function show(Species $species): SpeciesResource
     {
         return SpeciesResource::make($species);
     }
@@ -49,7 +52,7 @@ class SpeciesController extends Controller
     /**
      * Update the specified species.
      */
-    public function update(UpdateSpeciesRequest $request, Species $species)
+    public function update(UpdateSpeciesRequest $request, Species $species): SpeciesResource
     {
         $species->update($request->validated());
 
@@ -59,7 +62,7 @@ class SpeciesController extends Controller
     /**
      * Remove the specified species.
      */
-    public function destroy(Species $species)
+    public function destroy(Species $species): Response
     {
         $species->animals()->update([
             'species_id' => Species::where('name', 'Uncategorized')->value('id'),
