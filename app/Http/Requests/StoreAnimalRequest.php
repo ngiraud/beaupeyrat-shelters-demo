@@ -20,7 +20,7 @@ class StoreAnimalRequest extends FormRequest
             'name' => ['required', 'max:255'],
             'description' => ['required'],
             'birthdate' => ['required', 'date'],
-            'species_id' => ['required', Rule::exists(Species::class)],
+            'species_id' => ['required', Rule::exists(Species::class, 'id')],
             'gender' => ['required', Rule::enum(AnimalGender::class)],
         ];
     }
