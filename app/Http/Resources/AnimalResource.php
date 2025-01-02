@@ -20,6 +20,8 @@ class AnimalResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'shelter_id' => $this->shelter_id,
+            'species_id' => $this->species_id,
             'name' => $this->name,
             'description' => $this->description,
             'birthdate' => $this->birthdate,
@@ -27,6 +29,7 @@ class AnimalResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'shelter' => ShelterResource::make($this->whenLoaded('shelter')),
+            'species' => SpeciesResource::make($this->whenLoaded('species')),
         ];
     }
 }

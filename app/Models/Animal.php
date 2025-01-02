@@ -23,4 +23,9 @@ class Animal extends Model
     {
         return $this->belongsTo(Shelter::class);
     }
+
+    public function species(): BelongsTo
+    {
+        return $this->belongsTo(Species::class);
+    }
 }
